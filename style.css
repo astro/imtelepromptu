@@ -1,0 +1,68 @@
+body {
+  margin: 0 auto;
+  max-width: 40em;
+  background: black;
+  color: white;
+  font-family: sans-serif;
+  /* room for nav */
+  padding-top: 2em;
+  overflow: hidden;
+}
+
+a {
+  color: #f93;
+  font-weight: bold;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+nav p { 
+  margin: 0;
+  padding: 0;
+}
+nav a {
+  margin: 0 0.1em;
+  padding: 0.3em 0.5em;
+  background: #333;
+}
+
+/* input */
+
+textarea {
+  background: #111;
+  color: #ccc;
+  padding: 0;
+}
+
+/* play */
+
+.line { 
+  font-size: 200%;
+  margin: 1px;
+  padding: 0;
+  line-height: 3em;
+}
+.line.current {
+  border: 1px solid #666;
+  background-color: #333;
+}
+
+#play aside { 
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}
+#play aside a {
+  margin: 0 0.1em;
+  padding: 0.3em 0.5em;
+  background: #333;
+  font-size: 150%;
+  border-radius: 100%;
+}
