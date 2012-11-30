@@ -22,6 +22,7 @@ nav {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
 }
 nav p { 
   margin: 0;
@@ -43,15 +44,23 @@ textarea {
 
 /* play */
 
+#lines {
+    position: absolute;
+    left: 8px;
+    top: 0;
+    right: 8px;
+}
+
 .line { 
   font-size: 200%;
-  margin: 1px;
+  margin: 4px;
   padding: 0;
   line-height: 3em;
 }
 .line.current {
-  border: 1px solid #666;
-  background-color: #333;
+  border-left: 1px solid #666;
+  margin-left: 3px;
+  background-color: #111;
 }
 
 #play aside { 
