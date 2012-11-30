@@ -75,3 +75,9 @@ textarea {
   font-size: 150%;
   border-radius: 100%;
 }
+
+/* log */
+
+#log pre {
+  background: #333;
+}

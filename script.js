@@ -54,21 +54,61 @@ function updateScrolling() {
     $('#lines').css('top', -y + "px");
 }
 
+var timeOffset, playTime;
+var currentLog;
+
+function pad(s, padding, length) {
+    if (typeof s != 'string')
+	s = s.toString();
+    while(s.length < length)
+	s = padding + s;
+    return s;
+}
+
+function log(t, s) {
+    if (!currentLog)
+	return;
+
+    var hour = Math.floor(t / 3600000);
+    var min = Math.floor(t / 60000) % 60;
+    var sec = Math.floor(t / 1000) % 60;
+    var msec = t % 1000;
+    var ts = hour + ":" + pad(min, '0', 2) + ":" + pad(sec, '0', 2) + "." + pad(msec, '0', 3);
+    var span = $('<span></span>');
+    span.text(ts + " " + s + "\n");
+    currentLog.append(span);
+}
+
 var contextInit = {
     input: function() {
     },
 
     play: function() {
+	timeOffset = 0;
+	function canLog() {
+	    if (playing) {
+		var t = timeOffset + new Date().getTime() - playTime;
+		log(t, lines[currentLine]);
+	    }
+	}
 	$('#play_prev').click(function() {
 	    setCurrentLine(Math.max(0, currentLine - 1));
+	    canLog();
 	});
 	$('#play_play').click(function() {
 	    playing = !playing;
+	    if (playing) {
+		timeOffset += 0;
+		playTime = new Date().getTime();
+		canLog();
+	    } else
+		timeOffset += new Date().getTime() - playTime;
 	    $('#play_play').text(playing ? "■" : "▶");
 	    updateScrolling();
 	});
 	$('#play_next').click(function() {
 	    setCurrentLine(Math.min(lines.length - 1, currentLine + 1));
+	    canLog();
 	});
     },
 
@@ -91,6 +131,10 @@ var contextActivate = {
 	    el.append(p);
 	});
 
+	currentLog = $('<pre></pre>');
+	var article = $('<article><h2>Log run</h2></article>');
+	article.append(currentLog);
+	$('#log').prepend(article);
 	y = - $(window).innerHeight() / 2;
 	setCurrentLine(0);
     },
