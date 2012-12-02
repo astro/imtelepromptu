@@ -78,6 +78,16 @@ textarea {
 
 /* log */
 
+#log {
+  position: absolute;
+  top: 16px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  padding: 4px;
+  overflow: scroll;
+}
+
 #log pre {
   background: #333;
 }

@@ -132,7 +132,8 @@ var contextActivate = {
 	});
 
 	currentLog = $('<pre></pre>');
-	var article = $('<article><h2>Log run</h2></article>');
+	var num = contexts.input.find('article').length + 1;
+	var article = $('<article><h2>Log run ' + num + '</h2></article>');
 	article.append(currentLog);
 	$('#log').prepend(article);
 	y = - $(window).innerHeight() / 2;
