@@ -1,7 +1,12 @@
 var contexts; /* input, play, log jQuery */
 
 var scrollInterval = 25;
-var currentLine = 0, ty = 0, y = 0;
+/* Highlighted line, affects ty */
+var currentLine = 0;
+/* Current scrolling */
+var y = 0;
+/* Scrolling target */
+var ty = 0;
 var lines = [];
 var playing = false;
 
@@ -11,15 +16,16 @@ function setCurrentLine(line) {
     $('#lines').find('.line').eq(currentLine).addClass('current');
 
     var wh = $(window).innerHeight();
-    ty = -wh + 64;
-    for(var i = 0; i <= currentLine; i++) {
-	var h = $('#lines').find('.line').eq(i).outerHeight();
-	if (i < currentLine)
-	    ty += h;
-	else if (h >= wh)
-	    ty += h;
-	else
-	    ty += wh - 68;
+    /* Start with some padding to the top */
+    ty = -32;
+    /* All previous lines are high up */
+    for(var i = 0; i < currentLine; i++) {
+	ty += $('#lines').find('.line').eq(i).outerHeight();
+    }
+    var h = $('#lines').find('.line').eq(currentLine).outerHeight();
+    if (h >= wh) {
+	/* Very long line, scroll until end of line is at bottom */
+	ty += h - wh + 64;
     }
     updateScrolling();
 }
@@ -35,7 +41,7 @@ function updateScrolling() {
 				       }, scrollInterval);
     }
 
-    var scrollSpeed = (playing ? 4 : 40) * (0.5 + Math.abs(y - ty) / $(window).innerHeight());
+    var scrollSpeed = (playing ? 10 : 100) * Math.abs(y - ty) / $(window).innerHeight();
 
     if (y < ty) {
 	y += scrollSpeed;
